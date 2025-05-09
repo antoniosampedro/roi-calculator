@@ -1,6 +1,6 @@
 
-import { TransactionProvider } from "../contexts/TransactionContext";
-import { TransactionCalculator } from "../components/TransactionCalculator";
+import { CalculatorProvider } from "../contexts/CalculatorContext";
+import { Calculator } from "../components/Calculator";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 import { Link, useSearchParams, Navigate } from "react-router-dom";
@@ -27,9 +27,9 @@ const StatementRecPage = () => {
           </Button>
         </div>
       </div>
-      <TransactionProvider initialViewMode={role as 'sales' | 'csm'}>
-        <TransactionCalculator />
-      </TransactionProvider>
+      <CalculatorProvider initialViewMode={role as 'sales' | 'csm'}>
+        <Calculator />
+      </CalculatorProvider>
     </main>
   );
 };

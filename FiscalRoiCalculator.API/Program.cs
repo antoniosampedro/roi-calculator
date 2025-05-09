@@ -5,8 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddEndpointsApiExplorer(); // Uncommented
+builder.Services.AddSwaggerGen(); // Uncommented
 
 // Register our services
 builder.Services.AddScoped<IRoiCalculatorService, RoiCalculatorService>();
@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
         builder => builder
-            .WithOrigins("http://localhost:3000")
+            .WithOrigins("http://localhost:8080", "http://localhost:3000") // Added http://localhost:8080
             .AllowAnyMethod()
             .AllowAnyHeader());
 });
@@ -26,13 +26,13 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(); // Uncommented
+    app.UseSwaggerUI(); // Uncommented
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection(); // Commented out again to match Docker's HTTP-only setup for API service
 app.UseCors("AllowReactApp");
-app.UseAuthorization();
+app.UseAuthorization(); // Re-enabled
 app.MapControllers();
 
 app.Run();

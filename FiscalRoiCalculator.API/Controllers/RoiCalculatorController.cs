@@ -28,5 +28,29 @@ namespace FiscalRoiCalculator.API.Controllers
                 return BadRequest(new { error = ex.Message });
             }
         }
+
+        [HttpPost("statement-reconciliation")]
+        public ActionResult<StatementRecCalculatorOutput> CalculateStatementReconciliationRoi([FromBody] StatementRecCalculatorInput input)
+        {
+            if (input == null)
+            {
+                return BadRequest("Input data is null.");
+            }
+
+            try
+            {
+                var result = _roiCalculatorService.CalculateStatementReconciliationRoi(input);
+                return Ok(result);
+            }
+            catch (ArgumentException ex) // Catch specific exceptions if needed
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+            catch (Exception ex) // Generic catch-all
+            {
+                // Log the exception ex here
+                return StatusCode(500, "An unexpected error occurred.");
+            }
+        }
     }
-} 
+}

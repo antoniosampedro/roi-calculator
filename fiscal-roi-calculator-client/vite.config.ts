@@ -8,6 +8,13 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    proxy: {
+      '/api': {
+        target: 'http://api:80', // Target backend service in Docker network
+        changeOrigin: true,
+        // secure: false, // Not needed for HTTP target
+      }
+    }
   },
   plugins: [
     react(),
