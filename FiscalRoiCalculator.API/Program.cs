@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
         builder => builder
-            .WithOrigins("http://localhost:8080", "http://localhost:3000") // Added http://localhost:8080
+            .WithOrigins("http://localhost:3000", "http://localhost:8080") // Reverted to HTTP origins
             .AllowAnyMethod()
             .AllowAnyHeader());
 });
@@ -30,7 +30,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(); // Uncommented
 }
 
-// app.UseHttpsRedirection(); // Commented out again to match Docker's HTTP-only setup for API service
+// app.UseHttpsRedirection(); // Reverted: Commented out for HTTP setup
 app.UseCors("AllowReactApp");
 app.UseAuthorization(); // Re-enabled
 app.MapControllers();

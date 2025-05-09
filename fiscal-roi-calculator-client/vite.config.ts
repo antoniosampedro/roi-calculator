@@ -7,10 +7,11 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
-    port: 8080,
+    port: 3000, // UI on port 3000
+    // https: true, // Reverted: Disable HTTPS for Vite dev server
     proxy: {
       '/api': {
-        target: 'http://api:80', // Target backend service in Docker network
+        target: 'http://localhost:5000', // Reverted: Target backend on HTTP port 5000
         changeOrigin: true,
         // secure: false, // Not needed for HTTP target
       }
